@@ -6,21 +6,23 @@ class Cpu extends Module {
     // senere: memory/bus/uart osv.
   })
 
-  // -------------------------
   // PC (program counter)
-  // -------------------------
   val pc = RegInit(0.U(32.W))
 
-  // 32-bit instruction register (fetched instruction)
+  // 32-bit instruction register
   val instr = Wire(UInt(32.W))
 
-  // -------------------------
   // FETCH stage (hardcoded)
-  // -------------------------
-  // addi x1, x0, 0x123  => 0x12300093
   instr := "h12300093".U
 
-  // "Next PC" (for nu bare pc + 4)
+  // Decode fields (I-type)
+  val opcode = instr(6, 0)
+  val rd     = instr(11, 7)
+  val funct3 = instr(14, 12)
+  val rs1    = instr(19, 15)
+  val immI   = instr(31, 20).asSInt
+
+  // Next PC
   pc := pc + 4.U
 }
 
