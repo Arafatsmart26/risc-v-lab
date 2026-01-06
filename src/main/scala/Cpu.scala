@@ -26,7 +26,7 @@ class Cpu extends Module {
 
 object CpuMain extends App {
   println("Generating CPU Verilog...")
-  (new chisel3.stage.ChiselStage).emitVerilog(
+  emitVerilog(
     new Cpu(),
     Array("--target-dir", "generated")
   )
